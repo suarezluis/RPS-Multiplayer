@@ -1,0 +1,112 @@
+h1{
+    font-size: 40px;
+}
+
+h2{
+    font-size: 30px;
+}
+
+.banner{
+    background-image: url("../images/bannerBG.gif");
+    text-align: center;
+    height: 202px;
+    color: darkred;
+    padding: 10px;    
+}
+
+.name{
+    text-align: center;
+    padding: 10px;
+}
+
+.nameInput{
+    display: block;
+    margin: 0 auto;
+    width: 200px;
+    padding: 0;
+    
+}
+
+.nameInput:focus{
+    outline: none;
+    
+}
+
+.nameSubmit{
+    display: block;
+    margin: 0 auto;
+    width: 204px;
+}
+
+.arena{
+    margin: auto;
+    text-align: center
+    
+}
+
+.playerOneArea{
+    width: 100px;
+    height: 40px;
+    height: 50px;
+    display: inline-block;
+    text-align: center;
+    padding: 0px;
+}
+
+.vsArea{
+    width: 100px;
+    height: 40px;
+    height: 50px;
+    display: inline-block;
+    text-align: center;
+    padding: 0px;
+}
+.playerTwoArea{
+    width: 100px;
+    height: 40px;
+    height: 50px;
+    display: inline-block;
+    text-align: center;
+    padding: 0px;
+}
+
+.resultsArea{
+    text-align: center;
+    
+}
+
+.chatArea{
+    text-align: center;
+}
+
+.chatDisplay{
+    display: inline-block;
+    text-align: left;
+    padding: 0px;
+    height: 200px;
+    width: 520px;
+    border: solid black 1px;
+    color:green;
+    background-color: black;
+    
+}
+
+.chatForm{
+    width: fit-content;
+}
+
+.chatInput{
+    width: 472px;
+    margin: 0;
+    margin-right: -5px;
+}
+
+.chatInput:focus{
+    outline: none;
+}
+
+.chatSubmit{
+    margin: 0
+  
+  
+}
