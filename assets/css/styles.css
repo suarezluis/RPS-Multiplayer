@@ -14,7 +14,7 @@ h2{
     padding: 10px;    
 }
 
-.name{
+.enterGame{
     text-align: center;
     padding: 10px;
 }
@@ -68,6 +68,35 @@ h2{
     display: inline-block;
     text-align: center;
     padding: 0px;
+}
+
+.moves{
+    width: 308px;
+    height: 80px;
+    margin: auto;
+    
+}
+
+.playerOneMoves, .playerTwoMoves{
+    width: 100px;
+    text-align: center;
+    display: inline-block;
+    margin-top:0;
+    color:  red;
+    vertical-align:0;
+}
+.textResults{
+    width: 100px;
+    height: 80px;
+    text-align: center;
+    display: inline-block;
+    vertical-align: 0px;
+}
+
+
+button{
+    width: 100px;
+    margin: 1px;
 }
 
 .resultsArea{

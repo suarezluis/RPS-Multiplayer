@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- reset css -->
     <link rel="stylesheet" href="assets/css/reset.css">
@@ -23,9 +23,9 @@
         <h1>Rock Paper Scissors</h1>
         <h2>Multiplayer</h2>
     </div>
-    <div class="name">
+    <div class="enterGame">
         <form class="nameForm" action="">
-            <input class="nameInput" type="text">
+            <input class="nameInput" type="text" >
             <input class="nameSubmit" type="submit" value="Enter the Arena">
         </form>
     </div>
@@ -33,6 +33,11 @@
         <div class="playerOneArea">Wating for Player One</div>
         <div class="vsArea">Let's Get Ready To Rumble!</div>
         <div class="playerTwoArea">Waiting for Player Two</div>
+    </div>
+    <div class="moves">
+    <div class="playerOneMoves"></div>
+    <div class="textResults"></div>
+    <div class="playerTwoMoves"></div>
     </div>
     <div class="resultsArea"><img src="assets/images/full.gif" alt=""></div>
     <div class="chatArea">
@@ -42,6 +47,10 @@
         <input class="chatInput" type="text" name="" id="">
         <input class="chatSubmit" type="submit" value="Send">
     </div>
+
+
+    <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+    <script src="assets/javascript/main.js"></script>
 </body>
 
 </html>
