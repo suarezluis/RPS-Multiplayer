@@ -11,17 +11,21 @@ firebase.initializeApp(config);
 
 var database = firebase.database();
 var rpsMultiPlayerRef = database.ref("/RPS-MultiPlayer");
+
 var myNumber = 0;
 var name = "";
 var playerOneConnected;
 var playerTwoConnected;
 var iAm;
 var heIs;
+var he;
+var me;
 var pick = "";
 var played = 0;
 var won = 0;
 var lost = 0;
 var tie = 0;
+
 // declaration of player object
 var player = {
   connected: false,
@@ -32,7 +36,8 @@ var player = {
   won: 0,
   lost: 0,
   tie: 0,
-  end: false
+  end: false,
+  ready:true
 };
 
 // Check if database structure exists, if not create it
@@ -45,6 +50,8 @@ rpsMultiPlayerRef.once("value", function(snap) {
     rpsMultiPlayerRef.child("playerTwo").set(player);
   }
 });
+
+rpsMultiPlayerRef.onDisconnect().update({playerOne:player, playerTwo:player})
 
 // Function that updates player items with player number as "One" or "Two", itemToUpdate as a string
 function playerUpdate(playerNumber, itemToUpdate, valueToUpdate) {
@@ -69,6 +76,11 @@ function playerUpdate(playerNumber, itemToUpdate, valueToUpdate) {
 
 
 //========================main===============================
+
+rpsMultiPlayerRef.child("chat").on("child_added", function(snap, key){$(".chatDisplay").append("" + snap.val()+"<br>");$(".chatDisplay").animate({ scrollTop: $(document).height() }, "slow");
+return false;})
+
+
 rpsMultiPlayerRef.on("value", function(snap) {
   playerOneConnected = snap.child("playerOne").val().connected;
   playerTwoConnected = snap.child("playerTwo").val().connected;
@@ -105,8 +117,16 @@ rpsMultiPlayerRef.on("value", function(snap) {
     e.preventDefault();
 
     name = $(".nameInput").val();
+    
+
+
+    
     if (name != "") {
-      if (playerOneConnected) {
+    
+    //activate chat
+        $(".chatSubmit").on("click",function(){rpsMultiPlayerRef.child("chat").push(""+name+": "+$(".chatInput").val());$(".chatInput").val("")})
+
+        if (playerOneConnected) {
         iAm = "Two";
         heIs = "One";
       } else {
@@ -120,12 +140,15 @@ rpsMultiPlayerRef.on("value", function(snap) {
     } else alert("Do you have a name, son?");
   });
 
-  if (playerOneConnected && playerTwoConnected && pick == "") {
+  if (playerOneConnected && playerTwoConnected && pick == "" && snap.child("playerOne").val().ready && snap.child("playerTwo").val().ready) {
+    again = false
     $(".player" + iAm + "Moves").html(
       "<button class='option' value='RoCk!'>RoCk!</button><button class='option' value='PaPeR!'>PaPeR!</button><button class='option' value='ScIsSoRs!'>ScIsSoRs!</button>"
     );
+    
     $(".textResults").text("Pick Your Move...");
     $(".option").on("click", function() {
+        playerUpdate(iAm,"ready",false);
       $(".textResults").text("Waiting on your oponent...");
       $(".player" + iAm + "Moves").text(
         "You shot: " + $(this).text()
@@ -163,8 +186,8 @@ rpsMultiPlayerRef.on("value", function(snap) {
       );
     }, 4000);
     setTimeout(function() {
-      var me = snap.child("player" + iAm).val().shot;
-      var he = snap.child("player" + heIs).val().shot;
+      me = snap.child("player" + iAm).val().shot;
+      he = snap.child("player" + heIs).val().shot;
 
       if (me == "RoCk!" && he == "RoCk!") {
         played++;
@@ -248,7 +271,11 @@ rpsMultiPlayerRef.on("value", function(snap) {
       snap.child("player" + heIs).val().tie
   );
 
+  
   $(".playAgain").on("click", function(){
+    $(".playAgain").off()
+    pick = "";
+    $(".textResults").text("Waiting on your oponent...");
     rpsMultiPlayerRef.child("player"+iAm).set({
         connected: true,
         name: name,
@@ -258,8 +285,24 @@ rpsMultiPlayerRef.on("value", function(snap) {
         won: won,
         lost: lost,
         tie: tie,
-        end: false
+        end: false,
+        ready:true
       });
+
+      rpsMultiPlayerRef.child("player"+heIs).set({
+        connected: true,
+        name: snap.child("player" + heIs).val().name,
+        picked: false,
+        shot: "",
+        played: snap.child("player" + heIs).val().played,
+        won: snap.child("player" + heIs).val().won,
+        lost: snap.child("player" + heIs).val().lost,
+        tie: snap.child("player" + heIs).val().tie,
+        end: false,
+        ready: snap.child("player" + heIs).val().ready
+      });
+      
+      
   })
 
 }

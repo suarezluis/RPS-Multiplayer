@@ -1,3 +1,6 @@
+body{
+    background-color: #C6F88C;
+}
 h1{
     font-size: 40px;
 }
@@ -117,6 +120,7 @@ button{
     border: solid black 1px;
     color:green;
     background-color: black;
+    overflow: auto;
     
 }
 
