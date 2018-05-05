@@ -37,12 +37,11 @@ var player = {
   lost: 0,
   tie: 0,
   end: false,
-  ready:true
+  ready: true
 };
 
 // Check if database structure exists, if not create it
 rpsMultiPlayerRef.once("value", function(snap) {
-  
   if (snap.hasChild("playerOne") == false) {
     rpsMultiPlayerRef.child("playerOne").set(player);
   }
@@ -51,7 +50,9 @@ rpsMultiPlayerRef.once("value", function(snap) {
   }
 });
 
-rpsMultiPlayerRef.onDisconnect().update({playerOne:player, playerTwo:player})
+rpsMultiPlayerRef
+  .onDisconnect()
+  .update({ playerOne: player, playerTwo: player });
 
 // Function that updates player items with player number as "One" or "Two", itemToUpdate as a string
 function playerUpdate(playerNumber, itemToUpdate, valueToUpdate) {
@@ -71,15 +72,13 @@ function playerUpdate(playerNumber, itemToUpdate, valueToUpdate) {
   });
 }
 
-
-
-
-
 //========================main===============================
 
-rpsMultiPlayerRef.child("chat").on("child_added", function(snap, key){$(".chatDisplay").append("" + snap.val()+"<br>");$(".chatDisplay").animate({ scrollTop: $(document).height() }, "slow");
-return false;})
-
+rpsMultiPlayerRef.child("chat").on("child_added", function(snap, key) {
+  $(".chatDisplay").append("" + snap.val() + "<br>");
+  $(".chatDisplay").animate({ scrollTop: $(document).height() }, "slow");
+  return false;
+});
 
 rpsMultiPlayerRef.on("value", function(snap) {
   playerOneConnected = snap.child("playerOne").val().connected;
@@ -105,7 +104,7 @@ rpsMultiPlayerRef.on("value", function(snap) {
   //check if player one + player two is connected and update html
   if (playerOneConnected && playerTwoConnected) {
     $(".enterGame").html(
-      "The arena is full, please wait untill the Game is Over and enjoy the match"
+      "The arena is full, please wait untill the Game is Over"
     );
   } else {
     $(".enterGame").html(
@@ -117,16 +116,17 @@ rpsMultiPlayerRef.on("value", function(snap) {
     e.preventDefault();
 
     name = $(".nameInput").val();
-    
 
-
-    
     if (name != "") {
-    
-    //activate chat
-        $(".chatSubmit").on("click",function(){rpsMultiPlayerRef.child("chat").push(""+name+": "+$(".chatInput").val());$(".chatInput").val("")})
+      //activate chat
+      $(".chatSubmit").on("click", function() {
+        rpsMultiPlayerRef
+          .child("chat")
+          .push("" + name + ": " + $(".chatInput").val());
+        $(".chatInput").val("");
+      });
 
-        if (playerOneConnected) {
+      if (playerOneConnected) {
         iAm = "Two";
         heIs = "One";
       } else {
@@ -140,27 +140,35 @@ rpsMultiPlayerRef.on("value", function(snap) {
     } else alert("Do you have a name, son?");
   });
 
-  if (playerOneConnected && playerTwoConnected && pick == "" && snap.child("playerOne").val().ready && snap.child("playerTwo").val().ready) {
-    again = false
+  if (
+    playerOneConnected &&
+    playerTwoConnected &&
+    pick == "" &&
+    snap.child("playerOne").val().ready &&
+    snap.child("playerTwo").val().ready
+  ) {
+    again = false;
     $(".player" + iAm + "Moves").html(
       "<button class='option' value='RoCk!'>RoCk!</button><button class='option' value='PaPeR!'>PaPeR!</button><button class='option' value='ScIsSoRs!'>ScIsSoRs!</button>"
     );
-    
+
     $(".textResults").text("Pick Your Move...");
     $(".option").on("click", function() {
-        playerUpdate(iAm,"ready",false);
+      playerUpdate(iAm, "ready", false);
       $(".textResults").text("Waiting on your oponent...");
-      $(".player" + iAm + "Moves").text(
-        "You shot: " + $(this).text()
-      );
+      $(".player" + iAm + "Moves").text("You shot: " + $(this).text());
       pick = $(this).val();
       playerUpdate(iAm, "shot", pick);
       $(".option").off();
       playerUpdate(iAm, "picked", true);
     });
   }
-  if (playerOnePicked && playerTwoPicked && snap.child("player" + iAm).val().end == false) {
-    playerUpdate(iAm,"end", true);
+  if (
+    playerOnePicked &&
+    playerTwoPicked &&
+    snap.child("player" + iAm).val().end == false
+  ) {
+    playerUpdate(iAm, "end", true);
     $(".vsArea").css("color", "red");
     $(".vsArea").text("READY!");
     $(".textResults").text("");
@@ -235,48 +243,45 @@ rpsMultiPlayerRef.on("value", function(snap) {
         $(".vsArea").html("Its a Tie!");
       }
       // Update player stats in database
-      
-      playerUpdate(iAm,"played",played);
-      playerUpdate(iAm,"won",won);
-      playerUpdate(iAm,"lost",lost);
-      playerUpdate(iAm,"tie",tie);
-      
-      
-      $(".vsArea").append("<button class='playAgain'>Play Again</button>")
-      
+
+      playerUpdate(iAm, "played", played);
+      playerUpdate(iAm, "won", won);
+      playerUpdate(iAm, "lost", lost);
+      playerUpdate(iAm, "tie", tie);
+
+      $(".vsArea").append("<button class='playAgain'>Play Again</button>");
     }, 5000);
   }
 
-  if(name != ""){
-  $(".player" + iAm + "Area").html(
-    snap.child("player" + iAm).val().name +
-      "<br>Games:" +
-      played +
-      "<br>Won:" +
-      won +
-      "<br>Lost:" +
-      lost +
-      "<br>Tie:" +
-      tie
-  );
-  $(".player" + heIs + "Area").html(
-    snap.child("player" + heIs).val().name +
-      "<br>Games:" +
-      snap.child("player" + heIs).val().played +
-      "<br>Won:" +
-      snap.child("player" + heIs).val().won +
-      "<br>Lost:" +
-      snap.child("player" + heIs).val().lost +
-      "<br>Tie:" +
-      snap.child("player" + heIs).val().tie
-  );
+  if (name != "") {
+    $(".player" + iAm + "Area").html(
+      snap.child("player" + iAm).val().name +
+        "<br>Games:" +
+        played +
+        "<br>Won:" +
+        won +
+        "<br>Lost:" +
+        lost +
+        "<br>Tie:" +
+        tie
+    );
+    $(".player" + heIs + "Area").html(
+      snap.child("player" + heIs).val().name +
+        "<br>Games:" +
+        snap.child("player" + heIs).val().played +
+        "<br>Won:" +
+        snap.child("player" + heIs).val().won +
+        "<br>Lost:" +
+        snap.child("player" + heIs).val().lost +
+        "<br>Tie:" +
+        snap.child("player" + heIs).val().tie
+    );
 
-  
-  $(".playAgain").on("click", function(){
-    $(".playAgain").off()
-    pick = "";
-    $(".textResults").text("Waiting on your oponent...");
-    rpsMultiPlayerRef.child("player"+iAm).set({
+    $(".playAgain").on("click", function() {
+      $(".playAgain").off();
+      pick = "";
+      $(".textResults").text("Waiting on your oponent...");
+      rpsMultiPlayerRef.child("player" + iAm).set({
         connected: true,
         name: name,
         picked: false,
@@ -286,10 +291,10 @@ rpsMultiPlayerRef.on("value", function(snap) {
         lost: lost,
         tie: tie,
         end: false,
-        ready:true
+        ready: true
       });
 
-      rpsMultiPlayerRef.child("player"+heIs).set({
+      rpsMultiPlayerRef.child("player" + heIs).set({
         connected: true,
         name: snap.child("player" + heIs).val().name,
         picked: false,
@@ -301,10 +306,6 @@ rpsMultiPlayerRef.on("value", function(snap) {
         end: false,
         ready: snap.child("player" + heIs).val().ready
       });
-      
-      
-  })
-
-}
-
+    });
+  }
 });
