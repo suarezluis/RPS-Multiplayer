@@ -1,145 +1,184 @@
-body{
-    background-color: #C6F88C;
+body {
+  background-color: #c6f88c;
 }
-h1{
-    font-size: 40px;
-}
-
-h2{
-    font-size: 30px;
+h1 {
+  font-size: 40px;
 }
 
-.banner{
-    background-image: url("../images/bannerBG.gif");
-    text-align: center;
-    height: 202px;
-    color: darkred;
-    padding: 10px;    
+h2 {
+  font-size: 30px;
 }
 
-.enterGame{
-    text-align: center;
-    padding: 10px;
+.banner {
+  background-image: url("../images/bannerBG.gif");
+  text-align: center;
+  height: 202px;
+  color: darkred;
+  padding: 10px;
 }
 
-.nameInput{
-    display: block;
-    margin: 0 auto;
-    width: 200px;
-    padding: 0;
-    
+.enterGame {
+  text-align: center;
+  padding: 10px;
 }
 
-.nameInput:focus{
-    outline: none;
-    
+.nameInput {
+  display: block;
+  margin: 0 auto;
+  width: 200px;
+  padding: 0;
 }
 
-.nameSubmit{
-    display: block;
-    margin: 0 auto;
-    width: 204px;
+.nameInput:focus {
+  outline: none;
 }
 
-.arena{
-    margin: auto;
-    text-align: center
-    
+.nameSubmit {
+  display: block;
+  margin: 0 auto;
+  width: 204px;
 }
 
-.playerOneArea{
-    width: 100px;
-    height: 40px;
-    height: 50px;
-    display: inline-block;
-    text-align: center;
-    padding: 0px;
+.arena {
+  margin: auto;
+  text-align: center;
 }
 
-.vsArea{
-    width: 100px;
-    height: 40px;
-    height: 50px;
-    display: inline-block;
-    text-align: center;
-    padding: 0px;
-}
-.playerTwoArea{
-    width: 100px;
-    height: 40px;
-    height: 50px;
-    display: inline-block;
-    text-align: center;
-    padding: 0px;
+.playerOneArea {
+  width: 100px;
+  height: 40px;
+  height: 50px;
+  display: inline-block;
+  text-align: center;
+  padding: 0px;
 }
 
-.moves{
-    width: 308px;
-    height: 80px;
-    margin: auto;
-    
+.vsArea {
+  width: 100px;
+  height: 40px;
+  height: 50px;
+  display: inline-block;
+  text-align: center;
+  padding: 0px;
+}
+.playerTwoArea {
+  width: 100px;
+  height: 40px;
+  height: 50px;
+  display: inline-block;
+  text-align: center;
+  padding: 0px;
 }
 
-.playerOneMoves, .playerTwoMoves{
-    width: 100px;
-    text-align: center;
-    display: inline-block;
-    margin-top:0;
-    color:  red;
-    vertical-align:0;
+.moves {
+  width: 308px;
+  height: 80px;
+  margin: auto;
 }
-.textResults{
-    width: 100px;
-    height: 80px;
-    text-align: center;
-    display: inline-block;
-    vertical-align: 0px;
+
+.playerOneMoves,
+.playerTwoMoves {
+  width: 100px;
+  text-align: center;
+  display: inline-block;
+  margin-top: 0;
+  color: red;
+  vertical-align: 0;
+}
+.textResults {
+  width: 100px;
+  height: 80px;
+  text-align: center;
+  display: inline-block;
+  vertical-align: 0px;
+}
+
+button {
+  width: 100px;
+  margin: 1px;
+}
+
+.resultsArea {
+  text-align: center;
+}
+
+.chatArea {
+  text-align: center;
+}
+
+.chatDisplay {
+  display: inline-block;
+  text-align: left;
+  padding: 0px;
+  height: 200px;
+  width: 520px;
+  border: solid black 1px;
+  color: green;
+  background-color: black;
+  overflow: auto;
+}
+
+.chatForm {
+  width: fit-content;
+}
+
+.chatInput {
+  width: 472px;
+  margin: 0;
+  margin-right: -5px;
+}
+
+.chatInput:focus {
+  outline: none;
+}
+
+.chatSubmit {
+  margin: 0;
+}
+
+.emergencyButton {
+  color: red;
+  font-size: 50px;
+  background-color: yellow;
+  border-radius: 10px;
+  padding: 0 10px;
+  position: absolute;
+  top: 0;
+  margin: 10px;
+  width: auto;
+  height: auto;
+}
+
+.emergencyText {
+  display: none;
+}
+
+.emergencyButton:hover {
+  cursor: pointer;
+}
+
+.emergencyButton:hover .emergencyText {
+  display: unset;
 }
 
 
-button{
-    width: 100px;
-    margin: 1px;
-}
-
-.resultsArea{
-    text-align: center;
-    
-}
-
-.chatArea{
-    text-align: center;
-}
-
-.chatDisplay{
-    display: inline-block;
-    text-align: left;
-    padding: 0px;
-    height: 200px;
-    width: 520px;
-    border: solid black 1px;
-    color:green;
-    background-color: black;
-    overflow: auto;
-    
-}
-
-.chatForm{
-    width: fit-content;
-}
-
-.chatInput{
-    width: 472px;
-    margin: 0;
-    margin-right: -5px;
-}
-
-.chatInput:focus{
-    outline: none;
-}
-
-.chatSubmit{
-    margin: 0
-  
-  
-}
+@media screen and (max-width: 525px) {
+    body{
+        font-size: 10px;
+    }
+    *{
+        max-width: 100% !important;
+    }
+    .inputText{
+        width: 175px;
+    }
+    .window{
+        width: 75%
+    }
+    .content{
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        max-height: 160px;
+    }
+  }

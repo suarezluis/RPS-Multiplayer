@@ -4,7 +4,6 @@
  ╚═════════════ஜ۩۞۩ஜ══════════════╝
 */
 
-
 // Initialize Firebase
 var config = {
   apiKey: "AIzaSyCMZUFGTi5fg3qB0x-uDAPvruRRbMyixG0",
@@ -17,16 +16,16 @@ var config = {
 firebase.initializeApp(config);
 
 /***
- *                                            
- *                                            
- *    oooo    ooo  .oooo.   oooo d8b  .oooo.o 
- *     `88.  .8'  `P  )88b  `888""8P d88(  "8 
- *      `88..8'    .oP"888   888     `"Y88b.  
- *       `888'    d8(  888   888     o.  )88b 
- *        `8'     `Y888""8o d888b    8""888P' 
- *                                            
- *                                            
- *                                            
+ *
+ *
+ *    oooo    ooo  .oooo.   oooo d8b  .oooo.o
+ *     `88.  .8'  `P  )88b  `888""8P d88(  "8
+ *      `88..8'    .oP"888   888     `"Y88b.
+ *       `888'    d8(  888   888     o.  )88b
+ *        `8'     `Y888""8o d888b    8""888P'
+ *
+ *
+ *
  */
 
 var database = firebase.database();
@@ -59,6 +58,13 @@ var player = {
   ready: true
 };
 
+$(".emergencyButton").on("click", function(){
+  reset()
+})
+
+
+console.log("%cLuis Suarez: If you encounter any problems please reset the data base by typing reset() here in the console","color:red; background-color: yellow; font-size:20px;")
+
 // Check if database structure exists, if not create it
 rpsMultiPlayerRef.once("value", function(snap) {
   if (snap.hasChild("playerOne") == false) {
@@ -69,23 +75,39 @@ rpsMultiPlayerRef.once("value", function(snap) {
   }
 });
 
-rpsMultiPlayerRef
-  .onDisconnect()
-  .update({ playerOne: player, playerTwo: player });
+
+//                                           .     .o o.   
+//                                         .o8    .8' `8.  
+// oooo d8b  .ooooo.   .oooo.o  .ooooo.  .o888oo .8'   `8. 
+// `888""8P d88' `88b d88(  "8 d88' `88b   888   88     88 
+//  888     888ooo888 `"Y88b.  888ooo888   888   88     88 
+//  888     888    .o o.  )88b 888    .o   888 . `8.   .8' 
+// d888b    `Y8bod8P' 8""888P' `Y8bod8P'   "888"  `8. .8'  
+//                                                 `" "'   
+                                                        
+                                                        
+
+function reset(){
+  rpsMultiPlayerRef.child("playerOne").set(player);
+  rpsMultiPlayerRef.child("playerTwo").set(player);
+  window.location.reload()
+}
+
+
 
 /***
- *               oooo                                           ooooo     ooo                  .o8                .               .o o.   
- *               `888                                           `888'     `8'                 "888              .o8              .8' `8.  
- *    oo.ooooo.   888   .oooo.   oooo    ooo  .ooooo.  oooo d8b  888       8  oo.ooooo.   .oooo888   .oooo.   .o888oo  .ooooo.  .8'   `8. 
- *     888' `88b  888  `P  )88b   `88.  .8'  d88' `88b `888""8P  888       8   888' `88b d88' `888  `P  )88b    888   d88' `88b 88     88 
- *     888   888  888   .oP"888    `88..8'   888ooo888  888      888       8   888   888 888   888   .oP"888    888   888ooo888 88     88 
- *     888   888  888  d8(  888     `888'    888    .o  888      `88.    .8'   888   888 888   888  d8(  888    888 . 888    .o `8.   .8' 
- *     888bod8P' o888o `Y888""8o     .8'     `Y8bod8P' d888b       `YbodP'     888bod8P' `Y8bod88P" `Y888""8o   "888" `Y8bod8P'  `8. .8'  
- *     888                       .o..P'                                        888                                                `" "'   
- *    o888o                      `Y8P'                                        o888o                                                       
- *                                                                                                                                        
+ *               oooo                                           ooooo     ooo                  .o8                .               .o o.
+ *               `888                                           `888'     `8'                 "888              .o8              .8' `8.
+ *    oo.ooooo.   888   .oooo.   oooo    ooo  .ooooo.  oooo d8b  888       8  oo.ooooo.   .oooo888   .oooo.   .o888oo  .ooooo.  .8'   `8.
+ *     888' `88b  888  `P  )88b   `88.  .8'  d88' `88b `888""8P  888       8   888' `88b d88' `888  `P  )88b    888   d88' `88b 88     88
+ *     888   888  888   .oP"888    `88..8'   888ooo888  888      888       8   888   888 888   888   .oP"888    888   888ooo888 88     88
+ *     888   888  888  d8(  888     `888'    888    .o  888      `88.    .8'   888   888 888   888  d8(  888    888 . 888    .o `8.   .8'
+ *     888bod8P' o888o `Y888""8o     .8'     `Y8bod8P' d888b       `YbodP'     888bod8P' `Y8bod88P" `Y888""8o   "888" `Y8bod8P'  `8. .8'
+ *     888                       .o..P'                                        888                                                `" "'
+ *    o888o                      `Y8P'                                        o888o
+ *
  */
-  // Function that updates player items with player number as "One" or "Two", itemToUpdate as a string
+// Function that updates player items with player number as "One" or "Two", itemToUpdate as a string
 function playerUpdate(playerNumber, itemToUpdate, valueToUpdate) {
   var playerID;
 
@@ -104,19 +126,18 @@ function playerUpdate(playerNumber, itemToUpdate, valueToUpdate) {
 }
 
 /***
- *                                 o8o                .o o.   
- *                                 `"'               .8' `8.  
- *    ooo. .oo.  .oo.    .oooo.   oooo  ooo. .oo.   .8'   `8. 
- *    `888P"Y88bP"Y88b  `P  )88b  `888  `888P"Y88b  88     88 
- *     888   888   888   .oP"888   888   888   888  88     88 
- *     888   888   888  d8(  888   888   888   888  `8.   .8' 
- *    o888o o888o o888o `Y888""8o o888o o888o o888o  `8. .8'  
- *                                                    `" "'   
- *                                                            
- *                                                            
+ *                                 o8o                .o o.
+ *                                 `"'               .8' `8.
+ *    ooo. .oo.  .oo.    .oooo.   oooo  ooo. .oo.   .8'   `8.
+ *    `888P"Y88bP"Y88b  `P  )88b  `888  `888P"Y88b  88     88
+ *     888   888   888   .oP"888   888   888   888  88     88
+ *     888   888   888  d8(  888   888   888   888  `8.   .8'
+ *    o888o o888o o888o `Y888""8o o888o o888o o888o  `8. .8'
+ *                                                    `" "'
+ *
+ *
  */
 //========================main===============================
-
 
 rpsMultiPlayerRef.child("chat").on("child_added", function(snap, key) {
   $(".chatDisplay").append("" + snap.val() + "<br>");
@@ -155,20 +176,20 @@ rpsMultiPlayerRef.on("value", function(snap) {
       '<form class="nameForm" action=""><input class="nameInput" type="text" placeholder="Gladiator" required><input class="nameSubmit" type="submit" value="Enter the Arena"></form>'
     );
   }
-  
+
   /***
- *                                .o           oooo   o8o            oooo        o.   
- *                               .8'           `888   `"'            `888        `8.  
- *     .ooooo.  ooo. .oo.       .8'   .ooooo.   888  oooo   .ooooo.   888  oooo   `8. 
- *    d88' `88b `888P"Y88b      88   d88' `"Y8  888  `888  d88' `"Y8  888 .8P'     88 
- *    888   888  888   888      88   888        888   888  888        888888.      88 
- *    888   888  888   888  .o. `8.  888   .o8  888   888  888   .o8  888 `88b.   .8' 
- *    `Y8bod8P' o888o o888o Y8P  `8. `Y8bod8P' o888o o888o `Y8bod8P' o888o o888o .8'  
- *                                `"                                             "'   
- *                                                                                    
- *                                                                                    
- */
-  
+   *                                .o           oooo   o8o            oooo        o.
+   *                               .8'           `888   `"'            `888        `8.
+   *     .ooooo.  ooo. .oo.       .8'   .ooooo.   888  oooo   .ooooo.   888  oooo   `8.
+   *    d88' `88b `888P"Y88b      88   d88' `"Y8  888  `888  d88' `"Y8  888 .8P'     88
+   *    888   888  888   888      88   888        888   888  888        888888.      88
+   *    888   888  888   888  .o. `8.  888   .o8  888   888  888   .o8  888 `88b.   .8'
+   *    `Y8bod8P' o888o o888o Y8P  `8. `Y8bod8P' o888o o888o `Y8bod8P' o888o o888o .8'
+   *                                `"                                             "'
+   *
+   *
+   */
+
   //Listen for click on enter the arena
   $(".nameSubmit").on("click", function(e) {
     e.preventDefault();
@@ -185,9 +206,11 @@ rpsMultiPlayerRef.on("value", function(snap) {
       });
 
       if (playerOneConnected) {
+        rpsMultiPlayerRef.onDisconnect().update({ playerTwo: player });
         iAm = "Two";
         heIs = "One";
       } else {
+        rpsMultiPlayerRef.onDisconnect().update({ playerOne: player });
         iAm = "One";
         heIs = "Two";
       }
@@ -211,20 +234,20 @@ rpsMultiPlayerRef.on("value", function(snap) {
     );
 
     $(".textResults").text("Pick Your Move...");
-    
+
     /***
- *                                .o           oooo   o8o            oooo        o.   
- *                               .8'           `888   `"'            `888        `8.  
- *     .ooooo.  ooo. .oo.       .8'   .ooooo.   888  oooo   .ooooo.   888  oooo   `8. 
- *    d88' `88b `888P"Y88b      88   d88' `"Y8  888  `888  d88' `"Y8  888 .8P'     88 
- *    888   888  888   888      88   888        888   888  888        888888.      88 
- *    888   888  888   888  .o. `8.  888   .o8  888   888  888   .o8  888 `88b.   .8' 
- *    `Y8bod8P' o888o o888o Y8P  `8. `Y8bod8P' o888o o888o `Y8bod8P' o888o o888o .8'  
- *                                `"                                             "'   
- *                                                                                    
- *                                                                                    
- */
-    
+     *                                .o           oooo   o8o            oooo        o.
+     *                               .8'           `888   `"'            `888        `8.
+     *     .ooooo.  ooo. .oo.       .8'   .ooooo.   888  oooo   .ooooo.   888  oooo   `8.
+     *    d88' `88b `888P"Y88b      88   d88' `"Y8  888  `888  d88' `"Y8  888 .8P'     88
+     *    888   888  888   888      88   888        888   888  888        888888.      88
+     *    888   888  888   888  .o. `8.  888   .o8  888   888  888   .o8  888 `88b.   .8'
+     *    `Y8bod8P' o888o o888o Y8P  `8. `Y8bod8P' o888o o888o `Y8bod8P' o888o o888o .8'
+     *                                `"                                             "'
+     *
+     *
+     */
+
     $(".option").on("click", function() {
       playerUpdate(iAm, "ready", false);
       $(".textResults").text("Waiting on your oponent...");
@@ -350,19 +373,18 @@ rpsMultiPlayerRef.on("value", function(snap) {
     );
 
     /***
- *                                .o           oooo   o8o            oooo        o.   
- *                               .8'           `888   `"'            `888        `8.  
- *     .ooooo.  ooo. .oo.       .8'   .ooooo.   888  oooo   .ooooo.   888  oooo   `8. 
- *    d88' `88b `888P"Y88b      88   d88' `"Y8  888  `888  d88' `"Y8  888 .8P'     88 
- *    888   888  888   888      88   888        888   888  888        888888.      88 
- *    888   888  888   888  .o. `8.  888   .o8  888   888  888   .o8  888 `88b.   .8' 
- *    `Y8bod8P' o888o o888o Y8P  `8. `Y8bod8P' o888o o888o `Y8bod8P' o888o o888o .8'  
- *                                `"                                             "'   
- *                                                                                    
- *                                                                                    
- */
-    
-    
+     *                                .o           oooo   o8o            oooo        o.
+     *                               .8'           `888   `"'            `888        `8.
+     *     .ooooo.  ooo. .oo.       .8'   .ooooo.   888  oooo   .ooooo.   888  oooo   `8.
+     *    d88' `88b `888P"Y88b      88   d88' `"Y8  888  `888  d88' `"Y8  888 .8P'     88
+     *    888   888  888   888      88   888        888   888  888        888888.      88
+     *    888   888  888   888  .o. `8.  888   .o8  888   888  888   .o8  888 `88b.   .8'
+     *    `Y8bod8P' o888o o888o Y8P  `8. `Y8bod8P' o888o o888o `Y8bod8P' o888o o888o .8'
+     *                                `"                                             "'
+     *
+     *
+     */
+
     $(".playAgain").on("click", function() {
       $(".playAgain").off();
       pick = "";
@@ -395,4 +417,3 @@ rpsMultiPlayerRef.on("value", function(snap) {
     });
   }
 });
-
