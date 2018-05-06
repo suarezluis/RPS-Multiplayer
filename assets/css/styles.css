@@ -161,17 +161,19 @@ button {
   display: unset;
 }
 
-
 @media screen and (max-width: 525px) {
-    body{
-        font-size: 15px;
-    }
-    *{
-        max-width: 100% !important;
-    }
-    
+  body {
+    font-size: 15px;
+  }
+  * {
+    max-width: 100% !important;
   }
 
-  .emergencyButton{
-      top: 40px;
-  }
+ .chatInput, .chatDisplay{
+    max-width: 98% !important;
+    margin:auto;
+}
+.emergencyButton {
+  top: 40px;
+}
+}
